@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  DiceApp
-//
-//  Created by Mirrai Yessilbayeva on 13.09.2023.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -14,15 +7,18 @@ class ViewController: UIViewController {
     @IBOutlet var dice2: UIImageView!
     @IBOutlet var dicePrime: UIImageView!
     
-    let diceeArray = [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
+    let diceImages = [
+        #imageLiteral(resourceName: "DiceOne"),
+        #imageLiteral(resourceName: "DiceTwo"),
+        #imageLiteral(resourceName: "DiceThree"),
+        #imageLiteral(resourceName: "DiceFour"),
+        #imageLiteral(resourceName: "DiceFive"),
+        #imageLiteral(resourceName: "DiceSix")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.stackView.isHidden = true
-        self.dice1.isHidden = true
-        self.dicePrime.isHidden = true
-        self.dice2.isHidden = true
-        
+        setupInitialState()
     }
     
     @IBAction func didTapDiceRoll(_ sender: UIButton) {
@@ -30,24 +26,27 @@ class ViewController: UIViewController {
         switch tag {
         case 1:
             dicePrime.isHidden = false
-            
             stackView.isHidden = true
-            self.dice2.isHidden = true
-            self.dice1.isHidden = true
-            for _ in 0..<diceeArray.count {
-                dicePrime.image = diceeArray.randomElement()
-            }
+            dice2.isHidden = true
+            dice1.isHidden = true
+            dicePrime.image = diceImages.randomElement()
+            
         case 2:
             dicePrime.isHidden = true
             stackView.isHidden = false
-            self.dice2.isHidden = false
-            self.dice1.isHidden = false
-            for _ in 0..<diceeArray.count {
-                dice1.image = diceeArray.randomElement()
-                dice2.image = diceeArray.randomElement()
-            }
+            dice2.isHidden = false
+            dice1.isHidden = false
+            dice1.image = diceImages.randomElement()
+            dice2.image = diceImages.randomElement()
+            
         default:
             print("Error")
         }
+    }
+    
+    private func setupInitialState() {
+        dice1.isHidden = true
+        dicePrime.isHidden = true
+        dice2.isHidden = true
     }
 }
